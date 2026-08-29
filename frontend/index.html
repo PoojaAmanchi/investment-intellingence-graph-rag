@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Investment Intelligence Graph RAG</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Investment Intelligence Graph RAG</h1>
+      <p class="subtitle">Ask questions about semiconductor company competitors, suppliers, and filings</p>
+    </header>
+
+    <main>
+      <div class="query-box">
+        <input
+          type="text"
+          id="question-input"
+          placeholder="e.g. Which of NVIDIA's suppliers also compete with AMD?"
+        />
+        <button id="ask-button">Ask</button>
+      </div>
+
+      <div id="progress" class="progress"></div>
+
+      <div id="answer-container" class="answer-container" style="display:none;">
+        <div class="answer-header">
+          <span id="question-type-badge" class="badge"></span>
+          <span id="confidence-badge" class="badge"></span>
+        </div>
+        <div id="answer-text" class="answer-text"></div>
+        <div id="citations" class="citations"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+[
+  {
+    "ticker": "NVDA",
+    "cik": "0001045810",
+    "accession_number": "0001045810-26-000021",
+    "filing_date": "2026-02-25",
+    "primary_document": "nvda-20260125.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\NVDA_2026-02-25.html"
+  },
+  {
+    "ticker": "NVDA",
+    "cik": "0001045810",
+    "accession_number": "0001045810-25-000023",
+    "filing_date": "2025-02-26",
+    "primary_document": "nvda-20250126.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\NVDA_2025-02-26.html"
+  },
+  {
+    "ticker": "NVDA",
+    "cik": "0001045810",
+    "accession_number": "0001045810-24-000029",
+    "filing_date": "2024-02-21",
+    "primary_document": "nvda-20240128.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\NVDA_2024-02-21.html"
+  },
+  {
+    "ticker": "AMD",
+    "cik": "0000002488",
+    "accession_number": "0000002488-26-000018",
+    "filing_date": "2026-02-04",
+    "primary_document": "amd-20251227.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\AMD_2026-02-04.html"
+  },
+  {
+    "ticker": "AMD",
+    "cik": "0000002488",
+    "accession_number": "0000002488-25-000012",
+    "filing_date": "2025-02-05",
+    "primary_document": "amd-20241228.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\AMD_2025-02-05.html"
+  },
+  {
+    "ticker": "AMD",
+    "cik": "0000002488",
+    "accession_number": "0000002488-24-000012",
+    "filing_date": "2024-01-31",
+    "primary_document": "amd-20231230.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\AMD_2024-01-31.html"
+  },
+  {
+    "ticker": "INTC",
+    "cik": "0000050863",
+    "accession_number": "0000050863-26-000011",
+    "filing_date": "2026-01-23",
+    "primary_document": "intc-20251227.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\INTC_2026-01-23.html"
+  },
+  {
+    "ticker": "INTC",
+    "cik": "0000050863",
+    "accession_number": "0000050863-25-000009",
+    "filing_date": "2025-01-31",
+    "primary_document": "intc-20241228.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\INTC_2025-01-31.html"
+  },
+  {
+    "ticker": "INTC",
+    "cik": "0000050863",
+    "accession_number": "0000050863-24-000010",
+    "filing_date": "2024-01-26",
+    "primary_document": "intc-20231230.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\INTC_2024-01-26.html"
+  },
+  {
+    "ticker": "QCOM",
+    "cik": "0000804328",
+    "accession_number": "0000804328-25-000085",
+    "filing_date": "2025-11-05",
+    "primary_document": "qcom-20250928.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\QCOM_2025-11-05.html"
+  },
+  {
+    "ticker": "QCOM",
+    "cik": "0000804328",
+    "accession_number": "0000804328-24-000075",
+    "filing_date": "2024-11-06",
+    "primary_document": "qcom-20240929.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\QCOM_2024-11-06.html"
+  },
+  {
+    "ticker": "QCOM",
+    "cik": "0000804328",
+    "accession_number": "0000804328-23-000055",
+    "filing_date": "2023-11-01",
+    "primary_document": "qcom-20230924.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\QCOM_2023-11-01.html"
+  },
+  {
+    "ticker": "AVGO",
+    "cik": "0001730168",
+    "accession_number": "0001730168-25-000121",
+    "filing_date": "2025-12-18",
+    "primary_document": "avgo-20251102.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\AVGO_2025-12-18.html"
+  },
+  {
+    "ticker": "AVGO",
+    "cik": "0001730168",
+    "accession_number": "0001730168-24-000139",
+    "filing_date": "2024-12-20",
+    "primary_document": "avgo-20241103.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\AVGO_2024-12-20.html"
+  },
+  {
+    "ticker": "AVGO",
+    "cik": "0001730168",
+    "accession_number": "0001730168-23-000096",
+    "filing_date": "2023-12-14",
+    "primary_document": "avgo-20231029.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\AVGO_2023-12-14.html"
+  },
+  {
+    "ticker": "MU",
+    "cik": "0000723125",
+    "accession_number": "0000723125-25-000028",
+    "filing_date": "2025-10-03",
+    "primary_document": "mu-20250828.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\MU_2025-10-03.html"
+  },
+  {
+    "ticker": "MU",
+    "cik": "0000723125",
+    "accession_number": "0000723125-24-000027",
+    "filing_date": "2024-10-04",
+    "primary_document": "mu-20240829.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\MU_2024-10-04.html"
+  },
+  {
+    "ticker": "MU",
+    "cik": "0000723125",
+    "accession_number": "0000723125-23-000054",
+    "filing_date": "2023-10-06",
+    "primary_document": "mu-20230831.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\MU_2023-10-06.html"
+  },
+  {
+    "ticker": "TXN",
+    "cik": "0000097476",
+    "accession_number": "0000097476-26-000059",
+    "filing_date": "2026-02-06",
+    "primary_document": "txn-20251231.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\TXN_2026-02-06.html"
+  },
+  {
+    "ticker": "TXN",
+    "cik": "0000097476",
+    "accession_number": "0000097476-25-000007",
+    "filing_date": "2025-02-14",
+    "primary_document": "txn-20241231.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\TXN_2025-02-14.html"
+  },
+  {
+    "ticker": "TXN",
+    "cik": "0000097476",
+    "accession_number": "0000097476-24-000007",
+    "filing_date": "2024-02-02",
+    "primary_document": "txn-20231231.htm",
+    "local_path": "C:\\Users\\pamanchi\\Downloads\\investment-intel-graph-rag (2)\\investment-intel-graph-rag\\data\\sec_filings\\TXN_2024-02-02.html"
+  }
+]
