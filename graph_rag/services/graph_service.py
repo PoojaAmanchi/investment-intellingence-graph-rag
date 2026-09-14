@@ -181,13 +181,8 @@ def upsert_supplier_relationship(self, ticker: str, identity: dict, evidence: st
             {"ticker_a": ticker_a, "ticker_b": ticker_b},
         )
 
-    def get_schema_summary(self) -> dict:
-        node_counts = self.run(
-            """
-            CALL db.labels() YIELD label
-            CALL apoc.cypher.run('MATCH (n:`' + label + '`) RETURN count(n) AS count', {})
-            YIELD value
-            RETURN label, value.count AS count
-            """
-        )
-        return {"node_counts": node_counts}
+def get_schema_summary(self) -> dict:
+    node_counts = self.run(
+        "MATCH (n) RETURN labels(n)[0] AS label, count(n) AS count"
+    )
+    return {"node_counts": node_counts}
