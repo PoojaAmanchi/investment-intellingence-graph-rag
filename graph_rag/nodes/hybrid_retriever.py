@@ -128,11 +128,9 @@ def run_vector_branch(question: str, top_k: int) -> list[RetrievedChunk]:
 
 
 def retrieve(state: AgentState) -> AgentState:
-    graph_facts = run_graph_branch(state.get("entities", []), state.get("question_type", "factual"))
-    vector_chunks = run_vector_branch(state["question"], top_k=settings.reranker_initial_k)
+    retry_count = state.get("retry_count", 0)
+    top_k = settings.reranker_initial_k + (10 * retry_count)  # widen pool each retry
 
-    return {
-        **state,
-        "graph_facts": graph_facts,
-        "vector_chunks": vector_chunks,
-    }
+    graph_facts = run_graph_branch(state.get("entities", []), state.get("question_type", "factual"))
+    vector_chunks = run_vector_branch(state["question"], top_k=top_k)
+    return {**state, "graph_facts": graph_facts, "vector_chunks": vector_chunks}
