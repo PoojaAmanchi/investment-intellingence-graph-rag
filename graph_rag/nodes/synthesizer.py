@@ -3,6 +3,8 @@ Synthesizer node — writes the answer, citing which graph facts and/or
 filing chunks it drew on. Every claim should be traceable back to either
 a Cypher result or a specific filing chunk.
 """
+import re
+
 from langchain_ollama import ChatOllama
 
 from graph_rag.config import settings
@@ -40,6 +42,13 @@ def _build_context_block(state: AgentState) -> tuple[str, list[str]]:
     return "\n\n".join(blocks), citations
 
 
+def _extract_used_citations(answer: str, all_citations: list[str]) -> list[str]:
+    """Only report the sources the model actually referenced via [n] markers
+    in the generated answer, not everything that was offered as context."""
+    cited_indices = {int(m.group(1)) for m in re.finditer(r"\[(\d+)\]", answer)}
+    return [all_citations[i - 1] for i in sorted(cited_indices) if 1 <= i <= len(all_citations)]
+
+
 # Cached once at module load — avoids re-initializing the Ollama client on every call.
 _synthesis_llm: ChatOllama | None = None
 
@@ -71,5 +80,6 @@ def synthesize(state: AgentState) -> AgentState:
         f"Question: {state['question']}"
     )
     response = llm.invoke(prompt)
+    used_citations = _extract_used_citations(response.content, citations)
 
-    return {**state, "draft_answer": response.content, "citations": citations}
+    return {**state, "draft_answer": response.content, "citations": used_citations}
