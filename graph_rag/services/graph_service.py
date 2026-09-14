@@ -85,37 +85,60 @@ class GraphService:
             {"prior_id": prior_filing_id, "current_id": current_filing_id},
         )
 
-def upsert_competitor_relationship(self, ticker: str, identity: dict, evidence: str, filing_id: str):
-    if "ticker" in identity:
-        match_clause = "MERGE (comp:Company {ticker: $key})"
-    else:
-        match_clause = "MERGE (comp:Company {name: $key})"
-    key = identity.get("ticker") or identity["name"]
-    self.run(
-        f"""
-        MATCH (c:Company {{ticker: $ticker}})
-        {match_clause}
-        MERGE (c)-[r:COMPETES_WITH]-(comp)
-        SET r.evidence = $evidence, r.filing_id = $filing_id
-        """,
-        {"ticker": ticker, "key": key, "evidence": evidence, "filing_id": filing_id},
-    )
+    def upsert_competitor_relationship(self, ticker: str, identity: dict, evidence: str, filing_id: str):
+        """
+        `identity` comes from company_aliases.resolve_company_identity():
+        {"ticker": "NVDA"} for one of the 6 tracked companies, or
+        {"name": "..."} for an untracked one. Merging on ticker when known
+        prevents inconsistent name variants ("NVIDIA", "NVIDIA Corporation")
+        from creating disconnected duplicate Company nodes.
+        """
+        if "ticker" in identity:
+            match_clause = "MERGE (comp:Company {ticker: $key})"
+        else:
+            match_clause = "MERGE (comp:Company {name: $key}) ON CREATE SET comp.ticker = null"
+        key = identity.get("ticker") or identity["name"]
+        self.run(
+            f"""
+            MATCH (c:Company {{ticker: $ticker}})
+            {match_clause}
+            MERGE (c)-[r:COMPETES_WITH]-(comp)
+            SET r.evidence = $evidence, r.filing_id = $filing_id
+            """,
+            {
+                "ticker": ticker,
+                "key": key,
+                "evidence": evidence,
+                "filing_id": filing_id,
+            },
+        )
 
-def upsert_supplier_relationship(self, ticker: str, identity: dict, evidence: str, filing_id: str):
-    if "ticker" in identity:
-        match_clause = "MERGE (s:Company {ticker: $key})"
-    else:
-        match_clause = "MERGE (s:Company {name: $key})"
-    key = identity.get("ticker") or identity["name"]
-    self.run(
-        f"""
-        MATCH (c:Company {{ticker: $ticker}})
-        {match_clause}
-        MERGE (s)-[r:SUPPLIES]->(c)
-        SET r.evidence = $evidence, r.filing_id = $filing_id
-        """,
-        {"ticker": ticker, "key": key, "evidence": evidence, "filing_id": filing_id},
-    )
+    def upsert_supplier_relationship(self, ticker: str, identity: dict, evidence: str, filing_id: str):
+        """
+        `identity` comes from company_aliases.resolve_company_identity() —
+        see upsert_competitor_relationship for why we merge on this instead
+        of the raw extracted name.
+        """
+        if "ticker" in identity:
+            match_clause = "MERGE (s:Company {ticker: $key})"
+        else:
+            match_clause = "MERGE (s:Company {name: $key}) ON CREATE SET s.ticker = null"
+        key = identity.get("ticker") or identity["name"]
+        self.run(
+            f"""
+            MATCH (c:Company {{ticker: $ticker}})
+            {match_clause}
+            MERGE (s)-[r:SUPPLIES]->(c)
+            SET r.evidence = $evidence, r.filing_id = $filing_id
+            """,
+            {
+                "ticker": ticker,
+                "key": key,
+                "evidence": evidence,
+                "filing_id": filing_id,
+            },
+        )
+
     def upsert_executive(self, ticker: str, exec_name: str, role: str, filing_id: str):
         self.run(
             """
@@ -181,8 +204,13 @@ def upsert_supplier_relationship(self, ticker: str, identity: dict, evidence: st
             {"ticker_a": ticker_a, "ticker_b": ticker_b},
         )
 
-def get_schema_summary(self) -> dict:
-    node_counts = self.run(
-        "MATCH (n) RETURN labels(n)[0] AS label, count(n) AS count"
-    )
-    return {"node_counts": node_counts}
+    def get_schema_summary(self) -> dict:
+        node_counts = self.run(
+            """
+            CALL db.labels() YIELD label
+            CALL apoc.cypher.run('MATCH (n:`' + label + '`) RETURN count(n) AS count', {})
+            YIELD value
+            RETURN label, value.count AS count
+            """
+        )
+        return {"node_counts": node_counts}
