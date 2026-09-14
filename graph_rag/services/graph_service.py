@@ -85,40 +85,37 @@ class GraphService:
             {"prior_id": prior_filing_id, "current_id": current_filing_id},
         )
 
-    def upsert_competitor_relationship(self, ticker: str, competitor_name: str, evidence: str, filing_id: str):
-        self.run(
-            """
-            MATCH (c:Company {ticker: $ticker})
-            MERGE (comp:Company {name: $competitor_name})
-              ON CREATE SET comp.ticker = null
-            MERGE (c)-[r:COMPETES_WITH]-(comp)
-            SET r.evidence = $evidence, r.filing_id = $filing_id
-            """,
-            {
-                "ticker": ticker,
-                "competitor_name": competitor_name,
-                "evidence": evidence,
-                "filing_id": filing_id,
-            },
-        )
+def upsert_competitor_relationship(self, ticker: str, identity: dict, evidence: str, filing_id: str):
+    if "ticker" in identity:
+        match_clause = "MERGE (comp:Company {ticker: $key})"
+    else:
+        match_clause = "MERGE (comp:Company {name: $key})"
+    key = identity.get("ticker") or identity["name"]
+    self.run(
+        f"""
+        MATCH (c:Company {{ticker: $ticker}})
+        {match_clause}
+        MERGE (c)-[r:COMPETES_WITH]-(comp)
+        SET r.evidence = $evidence, r.filing_id = $filing_id
+        """,
+        {"ticker": ticker, "key": key, "evidence": evidence, "filing_id": filing_id},
+    )
 
-    def upsert_supplier_relationship(self, ticker: str, supplier_name: str, evidence: str, filing_id: str):
-        self.run(
-            """
-            MATCH (c:Company {ticker: $ticker})
-            MERGE (s:Company {name: $supplier_name})
-              ON CREATE SET s.ticker = null
-            MERGE (s)-[r:SUPPLIES]->(c)
-            SET r.evidence = $evidence, r.filing_id = $filing_id
-            """,
-            {
-                "ticker": ticker,
-                "supplier_name": supplier_name,
-                "evidence": evidence,
-                "filing_id": filing_id,
-            },
-        )
-
+def upsert_supplier_relationship(self, ticker: str, identity: dict, evidence: str, filing_id: str):
+    if "ticker" in identity:
+        match_clause = "MERGE (s:Company {ticker: $key})"
+    else:
+        match_clause = "MERGE (s:Company {name: $key})"
+    key = identity.get("ticker") or identity["name"]
+    self.run(
+        f"""
+        MATCH (c:Company {{ticker: $ticker}})
+        {match_clause}
+        MERGE (s)-[r:SUPPLIES]->(c)
+        SET r.evidence = $evidence, r.filing_id = $filing_id
+        """,
+        {"ticker": ticker, "key": key, "evidence": evidence, "filing_id": filing_id},
+    )
     def upsert_executive(self, ticker: str, exec_name: str, role: str, filing_id: str):
         self.run(
             """
