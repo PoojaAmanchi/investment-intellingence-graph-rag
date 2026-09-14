@@ -28,6 +28,7 @@ import argparse
 import json
 from pathlib import Path
 
+from graph_rag.services.company_aliases import resolve_company_identity
 from graph_rag.services.entity_extractor import extract_from_filing, ExtractionTimeoutError
 from graph_rag.services.graph_service import GraphService
 
@@ -108,9 +109,16 @@ def ingest_all(ticker_filter: str | None = None) -> None:
             continue
 
         for comp in extraction.competitors:
-            gs.upsert_competitor_relationship(ticker, comp.competitor_name, comp.evidence_quote, filing_id)
+            # Resolve to a canonical ticker if this competitor is one of the 6
+            # tracked companies (e.g. "NVIDIA Corporation" -> {"ticker": "NVDA"}),
+            # so the relationship lands on the same node as the company's own
+            # canonical Company{ticker: ...} node instead of a disconnected
+            # name-keyed duplicate.
+            identity = resolve_company_identity(comp.competitor_name)
+            gs.upsert_competitor_relationship(ticker, identity, comp.evidence_quote, filing_id)
         for sup in extraction.suppliers:
-            gs.upsert_supplier_relationship(ticker, sup.supplier_name, sup.evidence_quote, filing_id)
+            identity = resolve_company_identity(sup.supplier_name)
+            gs.upsert_supplier_relationship(ticker, identity, sup.evidence_quote, filing_id)
         for exe in extraction.executives:
             gs.upsert_executive(ticker, exe.name, exe.role, filing_id)
         for topic in extraction.topics:
