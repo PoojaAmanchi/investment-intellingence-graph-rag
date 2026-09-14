@@ -205,12 +205,12 @@ class GraphService:
         )
 
     def get_schema_summary(self) -> dict:
+        """Plain Cypher, no APOC plugin required — this used to call
+        apoc.cypher.run() dynamically per label, which needs the APOC plugin
+        installed and isn't available on plain Neo4j or some Aura tiers by
+        default. labels(n)[0] takes the first label of each node, which is
+        fine here since every node in this graph model has exactly one label."""
         node_counts = self.run(
-            """
-            CALL db.labels() YIELD label
-            CALL apoc.cypher.run('MATCH (n:`' + label + '`) RETURN count(n) AS count', {})
-            YIELD value
-            RETURN label, value.count AS count
-            """
+            "MATCH (n) RETURN labels(n)[0] AS label, count(n) AS count"
         )
         return {"node_counts": node_counts}
