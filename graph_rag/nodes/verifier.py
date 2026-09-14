@@ -14,8 +14,13 @@ from graph_rag.state import AgentState
 VERIFY_SYSTEM_PROMPT = """You are checking whether an answer is genuinely grounded in
 the provided context, or whether it contains claims not supported by that context.
 
-Score confidence from 0.0 (not grounded at all / fabricated) to 1.0 (every claim
-is directly supported by the context).
+SPECIAL CASE: If the answer explicitly states it cannot find enough information in the
+context (e.g. "I don't have enough retrieved context", "the filings do not mention this"),
+treat this as fully grounded and score confidence = 0.95 — declining to answer when the
+context doesn't support one is correct behavior, not a grounding failure.
+
+Otherwise, score confidence from 0.0 (not grounded / fabricated) to 1.0 (every claim is
+directly supported by the context).
 """
 
 
